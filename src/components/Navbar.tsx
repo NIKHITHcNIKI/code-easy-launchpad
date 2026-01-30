@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import logo from '@/assets/logo.png';
 
 const navItems = [
   { name: 'Home', href: '#home' },
@@ -38,9 +39,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl font-display">C</span>
-            </div>
+            <img src={logo} alt="Code Easy Logo" className="w-12 h-12 object-contain" />
             <span className={`text-xl font-bold font-display ${isScrolled ? 'text-foreground' : 'text-white'}`}>
               Code Easy
             </span>
