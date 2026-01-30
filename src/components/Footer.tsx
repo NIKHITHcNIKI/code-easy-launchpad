@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Linkedin } from 'lucide-react';
+import logo from '@/assets/logo.png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,9 +11,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl font-display">C</span>
-              </div>
+              <img src={logo} alt="Code Easy Logo" className="w-12 h-12 object-contain" />
               <span className="text-xl font-bold font-display">Code Easy</span>
             </div>
             <p className="text-background/70 mb-6 leading-relaxed">
