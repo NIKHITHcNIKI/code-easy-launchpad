@@ -1,50 +1,76 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Atom, Code2, GraduationCap, Calculator, Languages, Brain } from 'lucide-react';
+import { Atom, Code2, GraduationCap, Calculator, Languages, Brain, Clock, Users, ArrowRight } from 'lucide-react';
+
+// Course images
+import stemImg from '@/assets/course-stem.jpg';
+import technicalImg from '@/assets/course-technical.jpg';
+import entranceImg from '@/assets/course-entrance.jpg';
+import financeImg from '@/assets/course-finance.jpg';
+import languageImg from '@/assets/course-language.jpg';
+import personalImg from '@/assets/course-personal.jpg';
 
 const courseCategories = [
   {
     icon: Atom,
     title: 'STEM Learning',
     tagline: 'Experience the Atom of STEM Learning',
-    courses: ['Coding for Kids', 'Scratch & Block Coding', 'Python', 'Web Development', 'Robotics'],
-    color: 'from-rose-500 to-red-600',
+    description: 'Ignite curiosity and build future innovators with hands-on science, technology, engineering, and mathematics education.',
+    courses: ['Coding for Kids', 'Scratch & Block Coding', 'Python Basics', 'Web Development', 'Robotics'],
+    duration: '3-6 months',
+    ageGroup: 'Grade 1-10',
+    image: stemImg,
   },
   {
     icon: Code2,
     title: 'Technical Training',
     tagline: 'Master Industry-Ready Skills',
+    description: 'Comprehensive programming courses designed to prepare you for a successful career in software development.',
     courses: ['C Programming', 'Java', 'Python Advanced', 'Data Structures', 'Algorithms'],
-    color: 'from-red-500 to-rose-600',
+    duration: '4-8 months',
+    ageGroup: 'PU & Degree',
+    image: technicalImg,
   },
   {
     icon: GraduationCap,
     title: 'Entrance Coaching',
     tagline: 'Your Gateway to Success',
-    courses: ['PGCET - MCA', 'PGCET - MBA', 'Competitive Exams'],
-    color: 'from-rose-600 to-red-700',
+    description: 'Expert coaching for competitive entrance exams with proven strategies and comprehensive study materials.',
+    courses: ['PGCET - MCA', 'PGCET - MBA', 'Competitive Exams', 'Mock Tests'],
+    duration: '6-12 months',
+    ageGroup: 'Graduates',
+    image: entranceImg,
   },
   {
     icon: Calculator,
     title: 'Finance & Commerce',
     tagline: 'Build Business Acumen',
-    courses: ['Income Tax & GST', 'Accounts', 'Business', 'Economics', 'Statistics'],
-    color: 'from-red-600 to-rose-700',
+    description: 'Master the fundamentals of finance, accounting, and commerce to excel in the business world.',
+    courses: ['Income Tax & GST', 'Accounts', 'Business Studies', 'Economics', 'Statistics'],
+    duration: '3-6 months',
+    ageGroup: 'PU & Degree',
+    image: financeImg,
   },
   {
     icon: Languages,
     title: 'Language Courses',
     tagline: 'Communicate with Confidence',
-    courses: ['Kannada', 'Sanskrit', 'Hindi'],
-    color: 'from-rose-500 to-red-500',
+    description: 'Learn regional and classical languages to enhance communication skills and cultural understanding.',
+    courses: ['Kannada', 'Sanskrit', 'Hindi', 'Grammar', 'Literature'],
+    duration: '3-4 months',
+    ageGroup: 'All Ages',
+    image: languageImg,
   },
   {
     icon: Brain,
     title: 'Personal Development',
     tagline: 'Unlock Your Potential',
-    courses: ['Meditation', 'Psychology', 'Soft Skills'],
-    color: 'from-red-500 to-rose-600',
+    description: 'Develop essential life skills, emotional intelligence, and mindfulness for holistic personal growth.',
+    courses: ['Meditation', 'Psychology', 'Soft Skills', 'Public Speaking'],
+    duration: '2-3 months',
+    ageGroup: 'All Ages',
+    image: personalImg,
   },
 ];
 
@@ -60,40 +86,76 @@ const CourseCard = ({ category, index }: { category: typeof courseCategories[0];
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group"
     >
-      <div className="relative p-6 rounded-2xl bg-card border border-border overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
-        {/* Gradient Accent */}
-        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${category.color}`} />
-        
-        {/* Icon */}
-        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-          <category.icon className="w-7 h-7 text-white" />
+      <div className="relative rounded-2xl overflow-hidden bg-card border border-border transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+        {/* Image Section */}
+        <div className="relative h-52 overflow-hidden">
+          <img
+            src={category.image}
+            alt={category.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          
+          {/* Icon Badge */}
+          <div className="absolute top-4 left-4">
+            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shadow-lg">
+              <category.icon className="w-6 h-6 text-primary-foreground" />
+            </div>
+          </div>
+          
+          {/* Title on Image */}
+          <div className="absolute bottom-4 left-4 right-4">
+            <h3 className="text-xl font-bold text-white font-display mb-1">{category.title}</h3>
+            <p className="text-white/80 text-sm">{category.tagline}</p>
+          </div>
         </div>
         
-        {/* Content */}
-        <h3 className="text-xl font-bold mb-1 font-display">{category.title}</h3>
-        <p className="text-sm text-primary font-medium mb-4">{category.tagline}</p>
-        
-        {/* Course List */}
-        <ul className="space-y-2">
-          {category.courses.map((course) => (
-            <li key={course} className="flex items-center text-muted-foreground text-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mr-3" />
-              {course}
-            </li>
-          ))}
-        </ul>
-        
-        {/* Learn More */}
-        <motion.a
-          href="#contact"
-          className="mt-6 inline-flex items-center text-primary font-medium text-sm group/link"
-          whileHover={{ x: 5 }}
-        >
-          Learn More
-          <svg className="w-4 h-4 ml-1 transition-transform group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </motion.a>
+        {/* Content Section */}
+        <div className="p-6">
+          <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+            {category.description}
+          </p>
+          
+          {/* Meta Info */}
+          <div className="flex items-center gap-4 mb-4 text-sm">
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Clock className="w-4 h-4 text-primary" />
+              <span>{category.duration}</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Users className="w-4 h-4 text-primary" />
+              <span>{category.ageGroup}</span>
+            </div>
+          </div>
+          
+          {/* Course Tags */}
+          <div className="flex flex-wrap gap-2 mb-5">
+            {category.courses.slice(0, 3).map((course) => (
+              <span
+                key={course}
+                className="px-3 py-1 text-xs font-medium rounded-full bg-accent text-accent-foreground"
+              >
+                {course}
+              </span>
+            ))}
+            {category.courses.length > 3 && (
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-muted text-muted-foreground">
+                +{category.courses.length - 3} more
+              </span>
+            )}
+          </div>
+          
+          {/* CTA Button */}
+          <motion.a
+            href="#contact"
+            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-primary-foreground font-medium transition-all duration-300 hover:bg-primary/90"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Enroll Now
+            <ArrowRight className="w-4 h-4" />
+          </motion.a>
+        </div>
       </div>
     </motion.div>
   );
