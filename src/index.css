@@ -2,95 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Code Easy Design System - Premium Educational Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
+    /* Core Brand Colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary Red - Bold & Energetic */
+    --primary: 0 84% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Soft Gray */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 8%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted - Subtle backgrounds */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Warm Red Tint */
+    --accent: 0 100% 97%;
+    --accent-foreground: 0 84% 50%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 84% 60%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom Colors */
+    --hero-overlay: 0 0% 0%;
+    --card-hover: 0 0% 98%;
+    --text-on-dark: 0 0% 100%;
+    --text-muted-on-dark: 0 0% 80%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsla(0, 0%, 0%, 0.7) 0%, hsla(0, 0%, 0%, 0.4) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(0, 84%, 60%) 0%, hsl(0, 84%, 50%) 100%);
+    --gradient-card: linear-gradient(180deg, hsla(0, 0%, 0%, 0) 0%, hsla(0, 0%, 0%, 0.8) 100%);
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Shadows */
+    --shadow-sm: 0 2px 8px -2px hsla(0, 0%, 0%, 0.08);
+    --shadow-md: 0 8px 24px -4px hsla(0, 0%, 0%, 0.12);
+    --shadow-lg: 0 16px 48px -8px hsla(0, 0%, 0%, 0.15);
+    --shadow-xl: 0 24px 64px -12px hsla(0, 0%, 0%, 0.2);
+    --shadow-primary: 0 8px 32px -4px hsla(0, 84%, 60%, 0.35);
   }
 }
 
@@ -99,7 +68,162 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer components {
+  /* Hero Section Styles */
+  .hero-section {
+    @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero-overlay {
+    @apply absolute inset-0;
+    background: var(--gradient-hero);
+  }
+
+  /* Card Styles */
+  .feature-card {
+    @apply relative overflow-hidden rounded-2xl transition-all duration-500;
+    box-shadow: var(--shadow-md);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .feature-card-overlay {
+    @apply absolute inset-0 transition-opacity duration-300;
+    background: var(--gradient-card);
+  }
+
+  /* Button Variants */
+  .btn-hero-primary {
+    @apply px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300;
+    background: var(--gradient-primary);
+    color: hsl(var(--text-on-dark));
+    box-shadow: var(--shadow-primary);
+  }
+
+  .btn-hero-primary:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 40px -4px hsla(0, 84%, 60%, 0.45);
+  }
+
+  .btn-hero-outline {
+    @apply px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 border-2;
+    border-color: hsl(var(--text-on-dark));
+    color: hsl(var(--text-on-dark));
+    background: transparent;
+  }
+
+  .btn-hero-outline:hover {
+    background: hsl(var(--text-on-dark));
+    color: hsl(var(--foreground));
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  /* Navbar Styles */
+  .navbar-transparent {
+    @apply fixed top-0 left-0 right-0 z-50 transition-all duration-300;
+  }
+
+  .navbar-scrolled {
+    @apply backdrop-blur-md;
+    background: hsla(0, 0%, 100%, 0.9);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .navbar-scrolled .nav-link {
+    @apply text-foreground;
+  }
+
+  .nav-link {
+    @apply relative font-medium transition-all duration-300;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300;
+    background: hsl(var(--primary));
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  /* Section Styles */
+  .section-padding {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .section-subtitle {
+    @apply text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto;
+  }
+
+  /* Course Card */
+  .course-card {
+    @apply relative overflow-hidden rounded-2xl aspect-[4/3] group cursor-pointer;
+  }
+
+  .course-card-image {
+    @apply w-full h-full object-cover transition-transform duration-700;
+  }
+
+  .course-card:hover .course-card-image {
+    transform: scale(1.1);
+  }
+
+  /* Testimonial Card */
+  .testimonial-card {
+    @apply bg-card p-8 rounded-2xl transition-all duration-300;
+    box-shadow: var(--shadow-md);
+  }
+
+  .testimonial-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    @apply relative py-24 overflow-hidden;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .cta-overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(135deg, hsla(0, 84%, 50%, 0.9) 0%, hsla(0, 0%, 0%, 0.8) 100%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
   }
 }
