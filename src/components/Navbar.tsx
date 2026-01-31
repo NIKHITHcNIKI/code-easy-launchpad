@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import logoText from '@/assets/logo-text.png';
 
 const navItems = [
   { name: 'Home', href: '#home' },
@@ -35,14 +36,12 @@ const Navbar = () => {
           {/* Logo */}
           <motion.a
             href="#home"
-            className="flex items-center space-x-3"
+            className="flex items-center"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
             <img src={logo} alt="Code Easy Logo" className="w-12 h-12 object-contain" />
-            <span className={`text-xl font-bold font-display ${isScrolled ? 'text-foreground' : 'text-white'}`}>
-              Code Easy
-            </span>
+            <img src={logoText} alt="CodeEasy" className="h-8 object-contain ml-2" />
           </motion.a>
 
           {/* Desktop Navigation */}

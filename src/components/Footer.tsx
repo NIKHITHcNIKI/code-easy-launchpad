@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Linkedin } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import logoText from '@/assets/logo-text.png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,7 +13,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <img src={logo} alt="Code Easy Logo" className="w-12 h-12 object-contain" />
-              <span className="text-xl font-bold font-display">Code Easy</span>
+              <img src={logoText} alt="CodeEasy" className="h-8 object-contain" />
             </div>
             <p className="text-background/70 mb-6 leading-relaxed">
               Empowering minds through quality education. From coding for kids to competitive exam preparation, we make learning easy and effective.
