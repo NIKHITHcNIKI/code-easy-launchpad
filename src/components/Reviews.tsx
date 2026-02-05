@@ -1,41 +1,39 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Star, ChevronLeft, ChevronRight, Quote, Plus, Send, User } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
+import { Star, ChevronLeft, ChevronRight, Quote, Plus, Send, Loader2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Review {
-  name: string;
-  role: string;
-  content: string;
+  id?: string;
+  student_name: string;
   rating: number;
+  comment: string;
+  created_at?: string;
 }
 
 const initialTestimonials: Review[] = [
   {
-    name: 'Priya Sharma',
-    role: 'PGCET MCA - Rank 24',
-    content: 'Code Easy transformed my preparation journey. The mentors were incredibly supportive and the study materials were comprehensive. I cleared PGCET with a top rank!',
+    student_name: 'Priya Sharma',
     rating: 5,
+    comment: 'Code Easy transformed my preparation journey. The mentors were incredibly supportive and the study materials were comprehensive. I cleared PGCET with a top rank!',
   },
   {
-    name: 'Rahul Kumar',
-    role: 'Parent of Grade 5 Student',
-    content: 'My son has developed a genuine love for coding thanks to Code Easy. The interactive teaching methods keep him engaged and excited about learning.',
+    student_name: 'Rahul Kumar',
     rating: 5,
+    comment: 'My son has developed a genuine love for coding thanks to Code Easy. The interactive teaching methods keep him engaged and excited about learning.',
   },
   {
-    name: 'Anjali Reddy',
-    role: 'Python Course Graduate',
-    content: 'The practical approach to teaching programming made all the difference. I now work as a software developer, and I owe my success to Code Easy.',
+    student_name: 'Anjali Reddy',
     rating: 5,
+    comment: 'The practical approach to teaching programming made all the difference. I now work as a software developer, and I owe my success to Code Easy.',
   },
   {
-    name: 'Suresh Gowda',
-    role: 'Commerce Student',
-    content: 'The accounting and taxation courses are well-structured and easy to understand. The faculty explains complex concepts in simple terms.',
+    student_name: 'Suresh Gowda',
     rating: 5,
+    comment: 'The accounting and taxation courses are well-structured and easy to understand. The faculty explains complex concepts in simple terms.',
   },
 ];
 
@@ -80,10 +78,9 @@ const StarRating = ({
 };
 
 // Review Form Component
-const ReviewForm = ({ onSubmit, onClose }: { onSubmit: (review: Review) => void; onClose: () => void }) => {
-  const [name, setName] = useState('');
-  const [role, setRole] = useState('');
-  const [content, setContent] = useState('');
+const ReviewForm = ({ onSubmit, onClose, isSubmitting }: { onSubmit: (review: Review) => void; onClose: () => void; isSubmitting: boolean }) => {
+  const [student_name, setStudentName] = useState('');
+  const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -98,19 +95,7 @@ const ReviewForm = ({ onSubmit, onClose }: { onSubmit: (review: Review) => void;
       return;
     }
 
-    onSubmit({ name, role, content, rating });
-    
-    // Reset form
-    setName('');
-    setRole('');
-    setContent('');
-    setRating(0);
-    onClose();
-    
-    toast({
-      title: "Thank you for your review! ⭐",
-      description: "Your feedback helps us improve and inspire other students.",
-    });
+    onSubmit({ student_name, comment, rating });
   };
 
   return (
@@ -133,24 +118,12 @@ const ReviewForm = ({ onSubmit, onClose }: { onSubmit: (review: Review) => void;
         <label className="block text-sm font-medium mb-2">Your Name</label>
         <input
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={student_name}
+          onChange={(e) => setStudentName(e.target.value)}
           required
+          maxLength={100}
           className="w-full px-4 py-3 rounded-xl border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
           placeholder="Enter your name"
-        />
-      </div>
-
-      {/* Role/Course */}
-      <div>
-        <label className="block text-sm font-medium mb-2">Course / Role</label>
-        <input
-          type="text"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          required
-          className="w-full px-4 py-3 rounded-xl border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-          placeholder="e.g., Python Course Student, Parent"
         />
       </div>
 
@@ -158,9 +131,10 @@ const ReviewForm = ({ onSubmit, onClose }: { onSubmit: (review: Review) => void;
       <div>
         <label className="block text-sm font-medium mb-2">Your Review</label>
         <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
           required
+          maxLength={1000}
           rows={4}
           className="w-full px-4 py-3 rounded-xl border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
           placeholder="Share your experience with Code Easy..."
@@ -170,12 +144,17 @@ const ReviewForm = ({ onSubmit, onClose }: { onSubmit: (review: Review) => void;
       {/* Submit Button */}
       <motion.button
         type="submit"
-        className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:bg-primary/90"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        disabled={isSubmitting}
+        className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:bg-primary/90 disabled:opacity-50"
+        whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+        whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
       >
-        <Send className="w-5 h-5" />
-        Submit Review
+        {isSubmitting ? (
+          <Loader2 className="w-5 h-5 animate-spin" />
+        ) : (
+          <Send className="w-5 h-5" />
+        )}
+        {isSubmitting ? 'Submitting...' : 'Submit Review'}
       </motion.button>
     </form>
   );
@@ -187,6 +166,28 @@ const Reviews = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [testimonials, setTestimonials] = useState<Review[]>(initialTestimonials);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Fetch reviews from database
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const { data, error } = await supabase
+        .from('reviews')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching reviews:', error);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        setTestimonials([...data, ...initialTestimonials]);
+      }
+    };
+
+    fetchReviews();
+  }, []);
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -196,8 +197,39 @@ const Reviews = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
-  const handleAddReview = (review: Review) => {
-    setTestimonials([review, ...testimonials]);
+  const handleAddReview = async (review: Review) => {
+    setIsSubmitting(true);
+    
+    const { data, error } = await supabase
+      .from('reviews')
+      .insert([{
+        student_name: review.student_name.trim(),
+        rating: review.rating,
+        comment: review.comment.trim(),
+      }])
+      .select()
+      .single();
+
+    setIsSubmitting(false);
+
+    if (error) {
+      console.error('Error submitting review:', error);
+      toast({
+        title: "Error submitting review",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (data) {
+      setTestimonials([data, ...testimonials]);
+      setIsDialogOpen(false);
+      toast({
+        title: "Thank you for your review! ⭐",
+        description: "Your feedback helps us improve and inspire other students.",
+      });
+    }
   };
 
   return (
@@ -235,7 +267,8 @@ const Reviews = () => {
               </DialogHeader>
               <ReviewForm 
                 onSubmit={handleAddReview} 
-                onClose={() => setIsDialogOpen(false)} 
+                onClose={() => setIsDialogOpen(false)}
+                isSubmitting={isSubmitting}
               />
             </DialogContent>
           </Dialog>
@@ -245,7 +278,7 @@ const Reviews = () => {
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.slice(0, 4).map((testimonial, index) => (
             <motion.div
-              key={`${testimonial.name}-${index}`}
+              key={`${testimonial.student_name}-${index}`}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -260,19 +293,19 @@ const Reviews = () => {
               
               {/* Content */}
               <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-                "{testimonial.content}"
+                "{testimonial.comment}"
               </p>
               
               {/* Author */}
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                   <span className="text-primary font-semibold">
-                    {testimonial.name.charAt(0)}
+                    {testimonial.student_name.charAt(0)}
                   </span>
                 </div>
                 <div>
-                  <p className="font-semibold text-sm">{testimonial.name}</p>
-                  <p className="text-xs text-muted-foreground">{testimonial.role}</p>
+                  <p className="font-semibold text-sm">{testimonial.student_name}</p>
+                  <p className="text-xs text-muted-foreground">Student</p>
                 </div>
               </div>
             </motion.div>
@@ -285,7 +318,7 @@ const Reviews = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {testimonials.slice(4, 8).map((testimonial, index) => (
                 <motion.div
-                  key={`${testimonial.name}-extra-${index}`}
+                  key={`${testimonial.student_name}-extra-${index}`}
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: (index + 4) * 0.1 }}
@@ -298,18 +331,18 @@ const Reviews = () => {
                   </div>
                   
                   <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-                    "{testimonial.content}"
+                    "{testimonial.comment}"
                   </p>
                   
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                       <span className="text-primary font-semibold">
-                        {testimonial.name.charAt(0)}
+                        {testimonial.student_name.charAt(0)}
                       </span>
                     </div>
                     <div>
-                      <p className="font-semibold text-sm">{testimonial.name}</p>
-                      <p className="text-xs text-muted-foreground">{testimonial.role}</p>
+                      <p className="font-semibold text-sm">{testimonial.student_name}</p>
+                      <p className="text-xs text-muted-foreground">Student</p>
                     </div>
                   </div>
                 </motion.div>
@@ -334,18 +367,18 @@ const Reviews = () => {
             </div>
             
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              "{testimonials[currentIndex].content}"
+              "{testimonials[currentIndex].comment}"
             </p>
             
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                 <span className="text-primary font-bold text-lg">
-                  {testimonials[currentIndex].name.charAt(0)}
+                  {testimonials[currentIndex].student_name.charAt(0)}
                 </span>
               </div>
               <div>
-                <p className="font-semibold">{testimonials[currentIndex].name}</p>
-                <p className="text-sm text-muted-foreground">{testimonials[currentIndex].role}</p>
+                <p className="font-semibold">{testimonials[currentIndex].student_name}</p>
+                <p className="text-sm text-muted-foreground">Student</p>
               </div>
             </div>
           </motion.div>
