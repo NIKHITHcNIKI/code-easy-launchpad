@@ -212,11 +212,11 @@ const CourseModal = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto p-0">
         {/* Colorful Stripe */}
-        <div className="flex h-1.5 w-full">
-          <div className="flex-1 bg-red-500" />
-          <div className="flex-1 bg-blue-500" />
-          <div className="flex-1 bg-yellow-400" />
-          <div className="flex-1 bg-green-500" />
+        <div className="flex h-2 w-full absolute top-0 left-0 right-0 z-10">
+          <div className="flex-1 bg-[#e53935]" />
+          <div className="flex-1 bg-[#1e88e5]" />
+          <div className="flex-1 bg-[#fdd835]" />
+          <div className="flex-1 bg-[#43a047]" />
         </div>
         
         {/* Header with Image */}
