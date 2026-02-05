@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { MapPin, Mail, Phone, Award } from 'lucide-react';
+import buildingImg from '@/assets/code-easy-building.png';
 
 const About = () => {
   const ref = useRef(null);
@@ -47,46 +47,18 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Right - Mentor Card */}
+          {/* Right - Building Image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="bg-card rounded-3xl p-8 shadow-lg border border-border">
-              <div className="flex items-center gap-2 mb-6">
-                <Award className="w-6 h-6 text-primary" />
-                <h3 className="text-xl font-bold font-display">Meet Our Mentor</h3>
-              </div>
-
-              <div className="flex flex-col items-center text-center mb-6">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-red-700 flex items-center justify-center mb-4">
-                  <span className="text-4xl font-bold text-white font-display">M</span>
-                </div>
-                <h4 className="text-xl font-semibold mb-1">Expert Faculty</h4>
-                <p className="text-sm text-muted-foreground mb-4">Founder & Lead Instructor</p>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Award className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">Qualifications</p>
-                    <p className="text-sm text-muted-foreground">M.Tech, B.Ed with 10+ years teaching experience</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">Location</p>
-                    <p className="text-sm text-muted-foreground">Tumkur, Karnataka</p>
-                  </div>
-                </div>
-              </div>
+            <div className="rounded-3xl overflow-hidden shadow-lg">
+              <img 
+                src={buildingImg} 
+                alt="Code Easy Building - STEM Education and Training Center" 
+                className="w-full h-auto object-cover"
+              />
             </div>
           </motion.div>
         </div>
