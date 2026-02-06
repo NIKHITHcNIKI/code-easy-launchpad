@@ -1,4 +1,5 @@
-import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Linkedin, Lock } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import logo from '@/assets/logo.png';
 import logoText from '@/assets/logo-text.png';
 
@@ -79,10 +80,18 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-background/10 mt-12 pt-8 text-center">
+        <div className="border-t border-background/10 mt-12 pt-8 flex items-center justify-between">
           <p className="text-background/60 text-sm">
             © {currentYear} Code Easy. All rights reserved. | Made with ❤️ in Tumkur
           </p>
+          <Link
+            to="/admin/login"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-background/60 hover:text-primary transition-colors rounded hover:bg-background/5"
+            title="Admin Login"
+          >
+            <Lock className="w-4 h-4" />
+            Admin
+          </Link>
         </div>
       </div>
     </footer>
