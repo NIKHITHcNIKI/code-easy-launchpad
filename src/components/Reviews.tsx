@@ -11,6 +11,7 @@ interface Review {
   student_name: string;
   rating: number;
   comment: string;
+  status?: string;
   created_at?: string;
 }
 
@@ -168,12 +169,13 @@ const Reviews = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch reviews from database
+  // Fetch approved reviews from database
   useEffect(() => {
     const fetchReviews = async () => {
       const { data, error } = await supabase
         .from('reviews')
         .select('*')
+        .eq('status', 'approved')
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -200,15 +202,14 @@ const Reviews = () => {
   const handleAddReview = async (review: Review) => {
     setIsSubmitting(true);
     
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('reviews')
       .insert([{
         student_name: review.student_name.trim(),
         rating: review.rating,
         comment: review.comment.trim(),
-      }])
-      .select()
-      .single();
+        status: 'pending',
+      }]);
 
     setIsSubmitting(false);
 
@@ -222,14 +223,11 @@ const Reviews = () => {
       return;
     }
 
-    if (data) {
-      setTestimonials([data, ...testimonials]);
-      setIsDialogOpen(false);
-      toast({
-        title: "Thank you for your review! ⭐",
-        description: "Your feedback helps us improve and inspire other students.",
-      });
-    }
+    setIsDialogOpen(false);
+    toast({
+      title: "Thank you for your review! ⭐",
+      description: "Your review has been submitted and is pending approval.",
+    });
   };
 
   return (
