@@ -42,7 +42,7 @@ const Hero = () => {
           >
             <img
               src={heroImages[currentIndex]}
-              alt={`CodeEasy classroom ${currentIndex + 1}`}
+              alt={`Codeeasy classroom ${currentIndex + 1}`}
               className="w-full h-full object-cover"
             />
           </motion.div>
@@ -76,55 +76,38 @@ const Hero = () => {
           className="max-w-4xl mx-auto"
         >
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 font-display leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Experience the Ease of{' '}
-            <span className="gradient-text">Programming</span>
+            Welcome to Codeeasy –{' '}
+            <span className="gradient-text">Your Premier Institute for STEM Education in Tumkur</span>
           </motion.h1>
           
           <motion.p
-            className="text-xl md:text-2xl text-white/90 mb-4 font-light tracking-wide"
+            className="text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            Learn • Practice • Succeed
-          </motion.p>
-          
-          <motion.p
-            className="text-lg text-white/70 mb-10 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-          >
-            Empowering students from Grade 1 to Graduate level with quality education in STEM, 
-            Technical Training, and Competitive Exam Preparation.
+            Master the most in-demand technical skills with our professional certification programs. 
+            Learn from industry experts and accelerate your career growth.
           </motion.p>
           
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.1 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
           >
             <motion.a
-              href="#contact"
+              href="#courses"
               className="btn-hero-primary"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Enroll Now
-            </motion.a>
-            <motion.a
-              href="#courses"
-              className="btn-hero-outline"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Explore Courses
+              Explore Courses →
             </motion.a>
           </motion.div>
         </motion.div>

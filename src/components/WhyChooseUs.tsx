@@ -1,38 +1,28 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Users, Target, Wallet, Award, Clock, HeartHandshake } from 'lucide-react';
+import { Users, Lightbulb, Wrench, Briefcase } from 'lucide-react';
 
 const features = [
   {
     icon: Users,
-    title: 'Experienced Mentors',
-    description: 'Learn from industry experts and qualified educators with years of teaching experience.',
+    title: 'Expert Faculty',
+    description: 'Learn from industry professionals and experienced educators who bring real-world insights to every class.',
   },
   {
-    icon: Target,
-    title: 'Practical Learning',
-    description: 'Hands-on projects and real-world applications to reinforce theoretical concepts.',
+    icon: Lightbulb,
+    title: 'Holistic Development',
+    description: 'Focus on critical thinking, creativity, and problem-solving skills that go beyond textbook learning.',
   },
   {
-    icon: Wallet,
-    title: 'Affordable Fees',
-    description: 'Quality education at competitive prices, making learning accessible to everyone.',
+    icon: Wrench,
+    title: 'Hands-on Learning Approach',
+    description: 'Get practical experience through real-world projects and industry case studies that prepare you for the job market.',
   },
   {
-    icon: Award,
-    title: 'Proven Results',
-    description: 'Track record of student success in competitive exams and career placements.',
-  },
-  {
-    icon: Clock,
-    title: 'Flexible Timing',
-    description: 'Batch timings designed to accommodate school, college, and working professionals.',
-  },
-  {
-    icon: HeartHandshake,
-    title: 'Personal Attention',
-    description: 'Small batch sizes ensuring individual attention and personalized guidance.',
+    icon: Briefcase,
+    title: 'Career Support & Placement Assistance',
+    description: 'Comprehensive career services including resume building, interview preparation, and placement assistance.',
   },
 ];
 
@@ -49,13 +39,14 @@ const WhyChooseUs = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="section-title mb-4">Why Choose Code Easy?</h2>
+          <h2 className="section-title mb-4">What Sets Us Apart?</h2>
+          <h3 className="text-xl text-primary font-semibold mb-4">Leading IT Training Institute in Tumkur</h3>
           <p className="section-subtitle">
             We're committed to providing the best learning experience for every student
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
