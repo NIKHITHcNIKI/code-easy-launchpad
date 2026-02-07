@@ -28,12 +28,17 @@ const AdminLogin = () => {
       return;
     }
 
+    // Wait a moment for the auth state to update before navigating
     toast({
       title: "Welcome back!",
       description: "Redirecting to admin dashboard...",
     });
 
-    navigate('/admin');
+    // Small delay to let the auth listener update the isAdmin state
+    setTimeout(() => {
+      navigate('/admin');
+      setIsLoading(false);
+    }, 500);
   };
 
   return (
