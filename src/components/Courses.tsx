@@ -1,111 +1,51 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Atom, Code2, GraduationCap, Calculator, Languages, Brain, Clock, Users, ArrowRight, X, CheckCircle2 } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { GraduationCap, Briefcase, Clock, Users, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 // Course images
 import stemImg from '@/assets/course-stem.jpg';
 import technicalImg from '@/assets/course-technical.jpg';
-import entranceImg from '@/assets/course-entrance.jpg';
-import financeImg from '@/assets/course-finance.jpg';
-import languageImg from '@/assets/course-language.jpg';
-import personalImg from '@/assets/course-personal.jpg';
 
 const courseCategories = [
   {
-    icon: Atom,
-    title: 'STEM Learning',
-    tagline: 'Experience the Atom of STEM Learning',
-    description: 'Ignite curiosity and build future innovators with hands-on science, technology, engineering, and mathematics education.',
+    icon: GraduationCap,
+    title: 'For School Students (Class 1–12)',
+    tagline: 'Building Future Innovators',
+    description: 'Comprehensive programs designed to spark curiosity and build strong foundations in STEM education.',
     courses: [
-      { name: 'Coding for Kids', duration: '3 months', level: 'Beginner', description: 'Introduction to programming concepts through fun games and activities' },
-      { name: 'Scratch & Block Coding', duration: '2 months', level: 'Beginner', description: 'Visual programming for young minds using drag-and-drop blocks' },
-      { name: 'Python Basics', duration: '4 months', level: 'Intermediate', description: 'Learn Python programming from scratch with projects' },
-      { name: 'Web Development', duration: '6 months', level: 'Intermediate', description: 'Build websites using HTML, CSS, and JavaScript' },
-      { name: 'Robotics', duration: '4 months', level: 'Intermediate', description: 'Hands-on robotics with Arduino and sensors' },
+      { name: 'Robotics', duration: '3 months', level: 'All Levels', description: 'Hands-on robotics with Arduino and sensors' },
+      { name: 'Coding (Scratch/Python)', duration: '4 months', level: 'Beginner', description: 'Visual and text-based programming for young minds' },
+      { name: 'Science Clubs', duration: 'Ongoing', level: 'All Levels', description: 'Weekly science experiments and projects' },
+      { name: 'PCMB Tuition (CBSE, ICSE, State Board)', duration: 'Academic Year', level: 'All Levels', description: 'Subject-wise coaching for all boards' },
+      { name: 'Competitive Exam Coaching', duration: '6 months', level: 'Intermediate', description: 'Olympiad and NTSE preparation' },
+      { name: 'After-School Programs & Workshops', duration: 'Ongoing', level: 'All Levels', description: 'Skill-building activities and workshops' },
+      { name: 'Project Support', duration: 'As needed', level: 'All Levels', description: 'Help with school projects and assignments' },
+      { name: 'Summer Camps', duration: '1-2 months', level: 'All Levels', description: 'Intensive learning during summer break' },
     ],
-    duration: '3-6 months',
-    ageGroup: 'Grade 1-10',
+    duration: '3-12 months',
+    ageGroup: 'Class 1-12',
     image: stemImg,
   },
   {
-    icon: Code2,
-    title: 'Technical Training',
-    tagline: 'Master Industry-Ready Skills',
-    description: 'Comprehensive programming courses designed to prepare you for a successful career in software development.',
+    icon: Briefcase,
+    title: 'For College Students & Graduates',
+    tagline: 'Job-Focused Training With Placement Assistance',
+    description: 'Industry-ready courses designed to help you land your dream job with comprehensive placement support.',
     courses: [
-      { name: 'C Programming', duration: '3 months', level: 'Beginner', description: 'Foundation of programming with C language' },
-      { name: 'Java', duration: '4 months', level: 'Intermediate', description: 'Object-oriented programming with Java' },
-      { name: 'Python Advanced', duration: '4 months', level: 'Advanced', description: 'Advanced Python with libraries and frameworks' },
-      { name: 'Data Structures', duration: '3 months', level: 'Intermediate', description: 'Essential data structures for efficient coding' },
-      { name: 'Algorithms', duration: '3 months', level: 'Advanced', description: 'Algorithm design and problem-solving techniques' },
+      { name: 'Programming & Web Development', duration: '6 months', level: 'Beginner to Advanced', description: 'Full-stack development with modern technologies' },
+      { name: 'Cybersecurity', duration: '4 months', level: 'Intermediate', description: 'Network security, ethical hacking, and threat analysis' },
+      { name: 'Digital Marketing', duration: '3 months', level: 'Beginner', description: 'SEO, SEM, social media marketing, and analytics' },
+      { name: 'Software Testing', duration: '3 months', level: 'Beginner', description: 'Manual and automation testing techniques' },
+      { name: 'IT Fundamentals', duration: '2 months', level: 'Beginner', description: 'Core IT concepts and computer basics' },
+      { name: 'Cloud Computing', duration: '4 months', level: 'Intermediate', description: 'AWS, Azure, and cloud infrastructure' },
+      { name: 'Advanced Excel & Tally', duration: '2 months', level: 'Beginner', description: 'Business tools for accounting and data analysis' },
+      { name: 'Basic Computer Courses', duration: '1 month', level: 'Beginner', description: 'MS Office, internet basics, and typing' },
     ],
-    duration: '4-8 months',
-    ageGroup: 'PU & Degree',
+    duration: '1-6 months',
+    ageGroup: 'College & Graduates',
     image: technicalImg,
-  },
-  {
-    icon: GraduationCap,
-    title: 'Entrance Coaching',
-    tagline: 'Your Gateway to Success',
-    description: 'Expert coaching for competitive entrance exams with proven strategies and comprehensive study materials.',
-    courses: [
-      { name: 'PGCET - MCA', duration: '6 months', level: 'Advanced', description: 'Complete preparation for PGCET MCA entrance exam' },
-      { name: 'PGCET - MBA', duration: '6 months', level: 'Advanced', description: 'Comprehensive MBA entrance coaching' },
-      { name: 'Competitive Exams', duration: '4 months', level: 'Intermediate', description: 'General aptitude and reasoning preparation' },
-      { name: 'Mock Tests', duration: 'Ongoing', level: 'All Levels', description: 'Regular practice tests with detailed analysis' },
-    ],
-    duration: '6-12 months',
-    ageGroup: 'Graduates',
-    image: entranceImg,
-  },
-  {
-    icon: Calculator,
-    title: 'Finance & Commerce',
-    tagline: 'Build Business Acumen',
-    description: 'Master the fundamentals of finance, accounting, and commerce to excel in the business world.',
-    courses: [
-      { name: 'Income Tax & GST', duration: '3 months', level: 'Intermediate', description: 'Practical knowledge of Indian taxation system' },
-      { name: 'Accounts', duration: '4 months', level: 'Beginner', description: 'Fundamentals of accounting and bookkeeping' },
-      { name: 'Business Studies', duration: '3 months', level: 'Beginner', description: 'Core business concepts and management' },
-      { name: 'Economics', duration: '3 months', level: 'Intermediate', description: 'Micro and macroeconomics principles' },
-      { name: 'Statistics', duration: '2 months', level: 'Intermediate', description: 'Statistical analysis and data interpretation' },
-    ],
-    duration: '3-6 months',
-    ageGroup: 'PU & Degree',
-    image: financeImg,
-  },
-  {
-    icon: Languages,
-    title: 'Language Courses',
-    tagline: 'Communicate with Confidence',
-    description: 'Learn regional and classical languages to enhance communication skills and cultural understanding.',
-    courses: [
-      { name: 'Kannada', duration: '3 months', level: 'All Levels', description: 'Learn Kannada for academics and daily communication' },
-      { name: 'Sanskrit', duration: '4 months', level: 'Beginner', description: 'Classical Sanskrit language and literature' },
-      { name: 'Hindi', duration: '3 months', level: 'All Levels', description: 'Hindi language proficiency for all levels' },
-      { name: 'Grammar', duration: '2 months', level: 'All Levels', description: 'Master grammar rules and sentence structure' },
-      { name: 'Literature', duration: '3 months', level: 'Intermediate', description: 'Explore classic and modern literature' },
-    ],
-    duration: '3-4 months',
-    ageGroup: 'All Ages',
-    image: languageImg,
-  },
-  {
-    icon: Brain,
-    title: 'Personal Development',
-    tagline: 'Unlock Your Potential',
-    description: 'Develop essential life skills, emotional intelligence, and mindfulness for holistic personal growth.',
-    courses: [
-      { name: 'Meditation', duration: '2 months', level: 'Beginner', description: 'Mindfulness and stress management techniques' },
-      { name: 'Psychology', duration: '3 months', level: 'Intermediate', description: 'Understanding human behavior and emotions' },
-      { name: 'Soft Skills', duration: '2 months', level: 'All Levels', description: 'Communication, teamwork, and leadership' },
-      { name: 'Public Speaking', duration: '2 months', level: 'Beginner', description: 'Overcome fear and speak with confidence' },
-    ],
-    duration: '2-3 months',
-    ageGroup: 'All Ages',
-    image: personalImg,
   },
 ];
 
@@ -134,7 +74,7 @@ const CourseCard = ({
     >
       <div className="relative rounded-2xl overflow-hidden bg-card border border-border transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/30">
         {/* Image Section */}
-        <div className="relative h-52 overflow-hidden">
+        <div className="relative h-56 overflow-hidden">
           <img
             src={category.image}
             alt={category.title}
@@ -187,7 +127,7 @@ const CourseCard = ({
               {category.courses.length} courses available
             </span>
             <div className="flex items-center gap-1 text-primary font-medium text-sm group-hover:gap-2 transition-all">
-              Explore
+              Learn More
               <ArrowRight className="w-4 h-4" />
             </div>
           </div>
@@ -342,13 +282,13 @@ const Courses = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="section-title mb-4">Our Courses</h2>
+          <h2 className="section-title mb-4">Our Featured Programs</h2>
           <p className="section-subtitle">
             Click on any category to explore courses and enroll
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {courseCategories.map((category, index) => (
             <CourseCard 
               key={category.title} 

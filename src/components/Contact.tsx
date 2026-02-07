@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { MapPin, Mail, Phone, Send, MessageCircle } from 'lucide-react';
+import { MapPin, Mail, Phone, Send, MessageCircle, Clock } from 'lucide-react';
 
 const Contact = () => {
   const ref = useRef(null);
@@ -35,7 +35,7 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="section-title mb-4">Get In Touch</h2>
+          <h2 className="section-title mb-4">Join Us Today</h2>
           <p className="section-subtitle">
             Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
           </p>
@@ -99,12 +99,21 @@ const Contact = () => {
                     className="w-full px-4 py-3 rounded-xl border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                   >
                     <option value="">Select a course</option>
-                    <option value="stem">STEM Learning</option>
-                    <option value="technical">Technical Training</option>
-                    <option value="entrance">Entrance Coaching</option>
-                    <option value="finance">Finance & Commerce</option>
-                    <option value="language">Language Courses</option>
-                    <option value="personal">Personal Development</option>
+                    <optgroup label="For School Students">
+                      <option value="robotics">Robotics</option>
+                      <option value="coding-kids">Coding (Scratch/Python)</option>
+                      <option value="pcmb">PCMB Tuition</option>
+                      <option value="competitive">Competitive Exam Coaching</option>
+                      <option value="summer-camp">Summer Camps</option>
+                    </optgroup>
+                    <optgroup label="For College & Graduates">
+                      <option value="web-dev">Programming & Web Development</option>
+                      <option value="cybersecurity">Cybersecurity</option>
+                      <option value="digital-marketing">Digital Marketing</option>
+                      <option value="software-testing">Software Testing</option>
+                      <option value="cloud">Cloud Computing</option>
+                      <option value="excel-tally">Advanced Excel & Tally</option>
+                    </optgroup>
                   </select>
                 </div>
               </div>
@@ -156,6 +165,21 @@ const Contact = () => {
               </a>
 
               <a
+                href="https://wa.me/919876543210"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
+                  <MessageCircle className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+                </div>
+                <div>
+                  <p className="font-semibold">WhatsApp</p>
+                  <p className="text-muted-foreground">+91 98765 43210</p>
+                </div>
+              </a>
+
+              <a
                 href="mailto:info@codeeasy.in"
                 className="flex items-center gap-4 p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all group"
               >
@@ -177,30 +201,16 @@ const Contact = () => {
                   <p className="text-muted-foreground">Tumkur, Karnataka, India</p>
                 </div>
               </div>
-            </div>
 
-            {/* Quick Actions */}
-            <div className="flex gap-4">
-              <motion.a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl bg-green-500 text-white font-medium hover:bg-green-600 transition-colors"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <MessageCircle className="w-5 h-5" />
-                WhatsApp
-              </motion.a>
-              <motion.a
-                href="tel:+919876543210"
-                className="flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl bg-foreground text-background font-medium hover:bg-foreground/90 transition-colors"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Phone className="w-5 h-5" />
-                Call Now
-              </motion.a>
+              <div className="flex items-center gap-4 p-5 rounded-2xl bg-card border border-border">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-semibold">Working Hours</p>
+                  <p className="text-muted-foreground">Mon - Sat: 9:00 AM - 8:00 PM</p>
+                </div>
+              </div>
             </div>
 
             {/* Map */}
