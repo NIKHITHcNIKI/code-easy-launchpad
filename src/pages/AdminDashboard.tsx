@@ -43,8 +43,25 @@ const AdminDashboard = () => {
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!loading && (!user || !isAdmin)) {
-      navigate('/admin/login');
+    // Only redirect if we're done loading AND user is not admin
+    // Add a small delay to ensure the admin check has completed
+    if (!loading) {
+      if (!user) {
+        navigate('/admin/login');
+      } else if (user && !isAdmin) {
+        // Wait a bit more for admin status to be checked
+        const timeout = setTimeout(() => {
+          if (!isAdmin) {
+            toast({
+              title: "Access denied",
+              description: "You don't have admin privileges.",
+              variant: "destructive",
+            });
+            navigate('/admin/login');
+          }
+        }, 1000);
+        return () => clearTimeout(timeout);
+      }
     }
   }, [user, isAdmin, loading, navigate]);
 
