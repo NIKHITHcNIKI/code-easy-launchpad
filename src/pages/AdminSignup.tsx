@@ -1,26 +1,31 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, Mail, Loader2, ArrowLeft } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { UserPlus, Mail, Lock, Loader2, ArrowLeft } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 
-const AdminLogin = () => {
+const AdminSignup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const { error } = await signIn(email, password);
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: window.location.origin,
+      },
+    });
 
     if (error) {
       toast({
-        title: "Login failed",
+        title: "Signup failed",
         description: error.message,
         variant: "destructive",
       });
@@ -29,11 +34,11 @@ const AdminLogin = () => {
     }
 
     toast({
-      title: "Welcome back!",
-      description: "Redirecting to admin dashboard...",
+      title: "Account created!",
+      description: "Check your email to verify your account, then let me know so I can grant admin access.",
     });
 
-    navigate('/admin');
+    setIsLoading(false);
   };
 
   return (
@@ -44,23 +49,23 @@ const AdminLogin = () => {
         className="w-full max-w-md"
       >
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/admin/login')}
           className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Home
+          Back to Login
         </button>
 
         <div className="bg-card rounded-2xl border border-border p-8 shadow-lg">
           <div className="text-center mb-8">
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Lock className="w-8 h-8 text-primary" />
+              <UserPlus className="w-8 h-8 text-primary" />
             </div>
-            <h1 className="text-2xl font-bold font-display">Admin Login</h1>
-            <p className="text-muted-foreground mt-2">Sign in to manage reviews</p>
+            <h1 className="text-2xl font-bold font-display">Create Account</h1>
+            <p className="text-muted-foreground mt-2">Sign up to request admin access</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4 mb-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2">Email</label>
               <div className="relative">
@@ -71,7 +76,7 @@ const AdminLogin = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  placeholder="admin@example.com"
+                  placeholder="your@email.com"
                 />
               </div>
             </div>
@@ -85,6 +90,7 @@ const AdminLogin = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  minLength={6}
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                   placeholder="••••••••"
                 />
@@ -101,25 +107,15 @@ const AdminLogin = () => {
               {isLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
-                <Lock className="w-5 h-5" />
+                <UserPlus className="w-5 h-5" />
               )}
-              {isLoading ? 'Signing in...' : 'Sign In'}
+              {isLoading ? 'Creating account...' : 'Create Account'}
             </motion.button>
           </form>
-
-          <p className="text-center text-sm text-muted-foreground">
-            Don't have an account?{' '}
-            <button
-              onClick={() => navigate('/admin/signup')}
-              className="text-primary hover:underline font-medium"
-            >
-              Sign up
-            </button>
-          </p>
         </div>
       </motion.div>
     </div>
   );
 };
 
-export default AdminLogin;
+export default AdminSignup;
