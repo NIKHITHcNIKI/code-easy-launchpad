@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import logo from '@/assets/logo.png';
-import logoText from '@/assets/logo-text.png';
+import codeEasyLogo from '@/assets/codeeasy-logo.png';
 
 const navItems = [
   { name: 'Home', href: '#home' },
@@ -33,16 +32,15 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <motion.a
-            href="#home"
-            className="flex items-center"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <img src={logo} alt="Code Easy Logo" className="w-12 h-12 object-contain" />
-            <img src={logoText} alt="CodeEasy" className="h-8 object-contain ml-2" />
-          </motion.a>
+           {/* Logo */}
+           <motion.a
+             href="#home"
+             className="flex items-center"
+             whileHover={{ scale: 1.05 }}
+             transition={{ duration: 0.2 }}
+           >
+             <img src={codeEasyLogo} alt="Code Easy Logo" className="h-12 object-contain" />
+           </motion.a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
