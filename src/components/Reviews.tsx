@@ -202,19 +202,36 @@ const Reviews = () => {
   const handleAddReview = async (review: Review) => {
     setIsSubmitting(true);
     
-    const { error } = await supabase
-      .from('reviews')
-      .insert([{
-        student_name: review.student_name.trim(),
-        rating: review.rating,
-        comment: review.comment.trim(),
-        status: 'pending',
-      }]);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-review`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({
+            student_name: review.student_name.trim(),
+            rating: review.rating,
+            comment: review.comment.trim(),
+          }),
+        }
+      );
 
-    setIsSubmitting(false);
+      const data = await response.json();
+      setIsSubmitting(false);
 
-    if (error) {
-      console.error('Error submitting review:', error);
+      if (!response.ok) {
+        toast({
+          title: "Error submitting review",
+          description: data.error || "Please try again later.",
+          variant: "destructive",
+        });
+        return;
+      }
+    } catch (error) {
+      setIsSubmitting(false);
       toast({
         title: "Error submitting review",
         description: "Please try again later.",
