@@ -166,9 +166,23 @@
     @apply w-full;
   }
 
-  /* Section Styles */
+  /* Section Styles - Responsive */
   .section-padding {
-    @apply py-20 md:py-28 lg:py-32 min-h-screen flex flex-col justify-center;
+    @apply py-16 px-4 flex flex-col justify-center;
+    min-height: auto;
+  }
+
+  @media (min-width: 768px) {
+    .section-padding {
+      @apply py-24;
+      min-height: 100vh;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-padding {
+      @apply py-32;
+    }
   }
 
   .section-title {
