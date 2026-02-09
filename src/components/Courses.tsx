@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { GraduationCap, Briefcase, Clock, Users, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { GraduationCap, Briefcase, Clock, Users, ArrowRight } from 'lucide-react';
 
 // Course images
 import stemImg from '@/assets/course-stem.jpg';
@@ -13,39 +13,23 @@ const courseCategories = [
     icon: GraduationCap,
     title: 'For School Students (Class 1–12)',
     tagline: 'Building Future Innovators',
-    description: 'Comprehensive programs designed to spark curiosity and build strong foundations in STEM education.',
-    courses: [
-      { name: 'Robotics', duration: '3 months', level: 'All Levels', description: 'Hands-on robotics with Arduino and sensors' },
-      { name: 'Coding (Scratch/Python)', duration: '4 months', level: 'Beginner', description: 'Visual and text-based programming for young minds' },
-      { name: 'Science Clubs', duration: 'Ongoing', level: 'All Levels', description: 'Weekly science experiments and projects' },
-      { name: 'PCMB Tuition (CBSE, ICSE, State Board)', duration: 'Academic Year', level: 'All Levels', description: 'Subject-wise coaching for all boards' },
-      { name: 'Competitive Exam Coaching', duration: '6 months', level: 'Intermediate', description: 'Olympiad and NTSE preparation' },
-      { name: 'After-School Programs & Workshops', duration: 'Ongoing', level: 'All Levels', description: 'Skill-building activities and workshops' },
-      { name: 'Project Support', duration: 'As needed', level: 'All Levels', description: 'Help with school projects and assignments' },
-      { name: 'Summer Camps', duration: '1-2 months', level: 'All Levels', description: 'Intensive learning during summer break' },
-    ],
+    description: 'Comprehensive programs in coding, STEM, languages, and academics designed to spark curiosity and build strong foundations.',
+    highlights: ['Coding for Kids', 'STEM Learning', 'Language Courses', 'Academic Tuition'],
     duration: '3-12 months',
     ageGroup: 'Class 1-12',
     image: stemImg,
+    link: '/courses/school',
   },
   {
     icon: Briefcase,
     title: 'For College Students & Graduates',
     tagline: 'Job-Focused Training With Placement Assistance',
-    description: 'Industry-ready courses designed to help you land your dream job with comprehensive placement support.',
-    courses: [
-      { name: 'Programming & Web Development', duration: '6 months', level: 'Beginner to Advanced', description: 'Full-stack development with modern technologies' },
-      { name: 'Cybersecurity', duration: '4 months', level: 'Intermediate', description: 'Network security, ethical hacking, and threat analysis' },
-      { name: 'Digital Marketing', duration: '3 months', level: 'Beginner', description: 'SEO, SEM, social media marketing, and analytics' },
-      { name: 'Software Testing', duration: '3 months', level: 'Beginner', description: 'Manual and automation testing techniques' },
-      { name: 'IT Fundamentals', duration: '2 months', level: 'Beginner', description: 'Core IT concepts and computer basics' },
-      { name: 'Cloud Computing', duration: '4 months', level: 'Intermediate', description: 'AWS, Azure, and cloud infrastructure' },
-      { name: 'Advanced Excel & Tally', duration: '2 months', level: 'Beginner', description: 'Business tools for accounting and data analysis' },
-      { name: 'Basic Computer Courses', duration: '1 month', level: 'Beginner', description: 'MS Office, internet basics, and typing' },
-    ],
+    description: 'Industry-ready courses in programming, cybersecurity, digital marketing, and cloud computing with placement support.',
+    highlights: ['Web Development', 'Cybersecurity', 'Digital Marketing', 'Cloud Computing'],
     duration: '1-6 months',
     ageGroup: 'College & Graduates',
     image: technicalImg,
+    link: '/courses/college',
   },
 ];
 
@@ -109,6 +93,18 @@ const CourseCard = ({
             {category.description}
           </p>
           
+          {/* Highlights */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {category.highlights.map((highlight) => (
+              <span 
+                key={highlight} 
+                className="px-2 py-1 text-xs rounded-full bg-muted text-muted-foreground"
+              >
+                {highlight}
+              </span>
+            ))}
+          </div>
+          
           {/* Meta Info */}
           <div className="flex items-center gap-4 mb-4 text-sm">
             <div className="flex items-center gap-1.5 text-muted-foreground">
@@ -121,13 +117,13 @@ const CourseCard = ({
             </div>
           </div>
           
-          {/* Course Count */}
+          {/* CTA */}
           <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">
-              {category.courses.length} courses available
+              Explore all courses
             </span>
             <div className="flex items-center gap-1 text-primary font-medium text-sm group-hover:gap-2 transition-all">
-              Learn More
+              View Programs
               <ArrowRight className="w-4 h-4" />
             </div>
           </div>
@@ -137,140 +133,13 @@ const CourseCard = ({
   );
 };
 
-const CourseModal = ({ 
-  category, 
-  isOpen, 
-  onClose 
-}: { 
-  category: CourseCategory | null; 
-  isOpen: boolean; 
-  onClose: () => void;
-}) => {
-  if (!category) return null;
-
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto p-0">
-        {/* Colorful Stripe */}
-        <div className="flex h-4 w-full absolute top-0 left-0 right-0 z-10">
-          <div className="flex-1 bg-[#e53935]" />
-          <div className="flex-1 bg-[#1e88e5]" />
-          <div className="flex-1 bg-[#fdd835]" />
-          <div className="flex-1 bg-[#43a047]" />
-        </div>
-        
-        {/* Header with Image */}
-        <div className="relative h-48 overflow-hidden">
-          <img
-            src={category.image}
-            alt={category.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
-          
-          <div className="absolute bottom-6 left-6 right-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                <category.icon className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-white font-display">{category.title}</h2>
-                <p className="text-white/80 text-sm">{category.tagline}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-6">
-          <p className="text-muted-foreground mb-6">{category.description}</p>
-
-          {/* Meta */}
-          <div className="flex flex-wrap gap-4 mb-6">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-muted">
-              <Clock className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium">{category.duration}</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-muted">
-              <Users className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium">{category.ageGroup}</span>
-            </div>
-          </div>
-
-          {/* Courses List */}
-          <h3 className="text-lg font-semibold mb-4 font-display">Available Courses</h3>
-          <div className="space-y-3">
-            {category.courses.map((course, index) => (
-              <motion.div
-                key={course.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <CheckCircle2 className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <h4 className="font-semibold">{course.name}</h4>
-                    <span className="text-xs px-2 py-1 rounded-full bg-accent text-accent-foreground">
-                      {course.level}
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-2">{course.description}</p>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Clock className="w-3 h-3" />
-                    <span>{course.duration}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <motion.a
-              href="#contact"
-              onClick={onClose}
-              className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:bg-primary/90"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Enroll Now
-              <ArrowRight className="w-5 h-5" />
-            </motion.a>
-            <motion.a
-              href="https://wa.me/919876543210"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl border-2 border-border font-semibold transition-all duration-300 hover:bg-muted"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Ask on WhatsApp
-            </motion.a>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-};
-
 const Courses = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const [selectedCategory, setSelectedCategory] = useState<CourseCategory | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleCardClick = (category: CourseCategory) => {
-    setSelectedCategory(category);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedCategory(null);
+    navigate(category.link);
   };
 
   return (
@@ -299,12 +168,6 @@ const Courses = () => {
           ))}
         </div>
       </div>
-
-      <CourseModal 
-        category={selectedCategory}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-      />
     </section>
   );
 };
