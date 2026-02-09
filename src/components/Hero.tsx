@@ -81,7 +81,8 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Welcome to Codeeasy –{' '}
+            Welcome to Codeeasy –
+            <br />
             <span className="gradient-text">Your Premier Institute for STEM Education in Tumkur</span>
           </motion.h1>
           
