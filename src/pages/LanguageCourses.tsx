@@ -131,15 +131,18 @@ const LanguageCard = ({
           </div>
           
           {/* CTA */}
-          <motion.a
-            href="/#contact"
+          <motion.button
+            onClick={(e) => {
+              e.stopPropagation();
+              document.getElementById('join-us')?.scrollIntoView({ behavior: 'smooth' });
+            }}
             className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r ${course.color} text-white font-semibold transition-all duration-300 hover:opacity-90`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             Enroll Now
             <ArrowRight className="w-5 h-5" />
-          </motion.a>
+          </motion.button>
         </div>
       </div>
     </motion.div>
@@ -246,11 +249,11 @@ const LanguageCourses = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-background">
+      {/* Join Us Today Section */}
+      <section id="join-us" className="py-16 bg-background">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold font-display mb-4">
-            Ready to Learn a New Language?
+            Join Us Today
           </h2>
           <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
             Contact us to learn more about our language courses and find the right level for you.
