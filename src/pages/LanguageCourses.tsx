@@ -32,20 +32,20 @@ const languageCourses = [
     color: 'from-yellow-500 to-red-500',
   },
   {
-    name: 'Sanskrit',
-    tagline: 'The Language of Scholars',
-    description: 'Learn the ancient language of Sanskrit with focus on scriptures, grammar, and classical texts for academic excellence.',
+    name: 'English',
+    tagline: 'The Global Language',
+    description: 'Build strong English communication skills with focus on grammar, vocabulary, spoken English, and academic writing for all levels.',
     features: [
-      'Devanagari Script',
-      'Sanskrit Grammar (Vyakarana)',
-      'Shloka Recitation',
-      'Classical Literature',
-      'Board Exam Prep'
+      'Spoken English',
+      'Grammar & Vocabulary',
+      'Creative Writing',
+      'Reading Comprehension',
+      'Public Speaking'
     ],
-    duration: '4-6 months',
+    duration: '3-6 months',
     levels: 'Basic to Advanced',
-    ageGroup: 'Class 6-12',
-    color: 'from-orange-500 to-yellow-500',
+    ageGroup: 'Class 1-12',
+    color: 'from-purple-500 to-blue-500',
   },
   {
     name: 'Hindi',
@@ -159,11 +159,11 @@ const LanguageCourses = () => {
       <section className="relative pt-24 pb-12 bg-muted">
         <div className="container mx-auto px-4">
           <button 
-            onClick={() => navigate('/courses/school')}
+            onClick={() => navigate('/courses/stem')}
             className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to School Programs
+            Back to STEM Learning
           </button>
           
           <motion.div

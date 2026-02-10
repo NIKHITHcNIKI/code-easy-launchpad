@@ -11,6 +11,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import SchoolPrograms from "./pages/SchoolPrograms";
 import CollegePrograms from "./pages/CollegePrograms";
 import LanguageCourses from "./pages/LanguageCourses";
+import StemPrograms from "./pages/StemPrograms";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/courses/school" element={<SchoolPrograms />} />
             <Route path="/courses/college" element={<CollegePrograms />} />
+            <Route path="/courses/stem" element={<StemPrograms />} />
             <Route path="/courses/languages" element={<LanguageCourses />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/signup" element={<AdminSignup />} />
