@@ -3,9 +3,9 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  GraduationCap, 
-  Code, 
   Microscope, 
+  Palette, 
+  Languages, 
   ArrowLeft, 
   ArrowRight,
   Clock,
@@ -14,43 +14,31 @@ import {
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-import stemImg from '@/assets/course-stem.jpg';
-import codingImg from '@/assets/course-coding.jpg';
-import academicsImg from '@/assets/course-academics.jpg';
+import artImg from '@/assets/course-art.jpg';
+import languageImg from '@/assets/course-language.jpg';
 
-const schoolCategories = [
+const stemCategories = [
   {
-    icon: GraduationCap,
-    title: 'Classes 1–10',
-    tagline: 'Foundation Learning',
-    description: 'Strong academic foundation with PCMB tuition, competitive exam coaching, and project support for CBSE, ICSE, and State Board students.',
-    courses: ['PCMB Tuition', 'Olympiad Prep', 'NTSE Coaching', 'Project Support', 'After-School Programs'],
-    duration: 'Academic Year',
-    ageGroup: 'Class 1-10',
-    image: academicsImg,
-    link: null,
-  },
-  {
-    icon: Code,
-    title: 'Coding for Kids',
-    tagline: 'Build the Future',
-    description: 'Learn programming through fun, interactive courses designed for young minds. From visual coding to web development.',
-    courses: ['Scratch Programming', 'Block Coding', 'Web Development', 'Robotics'],
-    duration: '3-6 months',
-    ageGroup: 'Class 3-12',
-    image: codingImg,
-    link: null,
-  },
-  {
-    icon: Microscope,
-    title: 'STEM Learning',
-    tagline: 'Science, Technology, Engineering & Arts',
-    description: 'Hands-on learning in creative arts and languages through expert-led workshops, experiments, and projects.',
-    courses: ['Art & Craft', 'Language Course', 'Science Clubs', 'Workshops'],
+    icon: Palette,
+    title: 'Art & Craft',
+    tagline: 'Unleash Creativity',
+    description: 'Explore painting, drawing, sculpture, and mixed media through hands-on creative workshops that nurture artistic expression and imagination.',
+    courses: ['Painting', 'Drawing', 'Sculpture', 'Mixed Media', 'Craft Projects'],
     duration: 'Ongoing',
     ageGroup: 'All Ages',
-    image: stemImg,
-    link: '/courses/stem',
+    image: artImg,
+    link: null,
+  },
+  {
+    icon: Languages,
+    title: 'Language Course',
+    tagline: 'Master Multiple Languages',
+    description: 'Comprehensive language courses to help students excel in Kannada, English, and Hindi with expert instructors and proven methods.',
+    courses: ['Kannada', 'English', 'Hindi'],
+    duration: '3-6 months',
+    ageGroup: 'Class 1-12',
+    image: languageImg,
+    link: '/courses/languages',
   },
 ];
 
@@ -58,7 +46,7 @@ const CategoryCard = ({
   category, 
   index 
 }: { 
-  category: typeof schoolCategories[0]; 
+  category: typeof stemCategories[0]; 
   index: number;
 }) => {
   const ref = useRef(null);
@@ -69,10 +57,11 @@ const CategoryCard = ({
     if (category.link) {
       navigate(category.link);
     } else {
-      // Scroll to contact section
       const contactSection = document.getElementById('contact');
       if (contactSection) {
         contactSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        navigate('/#contact');
       }
     }
   };
@@ -82,13 +71,13 @@ const CategoryCard = ({
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.15 }}
       className="group cursor-pointer"
       onClick={handleClick}
     >
       <div className="relative rounded-2xl overflow-hidden bg-card border border-border transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/30 h-full">
         {/* Image */}
-        <div className="relative h-44 overflow-hidden">
+        <div className="relative h-48 overflow-hidden">
           <img 
             src={category.image} 
             alt={category.title}
@@ -110,7 +99,6 @@ const CategoryCard = ({
             {category.description}
           </p>
           
-          {/* Meta Info */}
           <div className="flex items-center gap-4 mb-4 text-sm">
             <div className="flex items-center gap-1.5 text-muted-foreground">
               <Clock className="w-4 h-4 text-primary" />
@@ -122,7 +110,6 @@ const CategoryCard = ({
             </div>
           </div>
 
-          {/* Course Tags */}
           <div className="flex flex-wrap gap-2 mb-4">
             {category.courses.map((course) => (
               <span 
@@ -134,7 +121,6 @@ const CategoryCard = ({
             ))}
           </div>
           
-          {/* CTA */}
           <div className="flex items-center gap-1 text-primary font-medium text-sm group-hover:gap-2 transition-all">
             {category.link ? 'View Courses' : 'Enquire Now'}
             <ArrowRight className="w-4 h-4" />
@@ -145,7 +131,7 @@ const CategoryCard = ({
   );
 };
 
-const SchoolPrograms = () => {
+const StemPrograms = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const navigate = useNavigate();
@@ -154,15 +140,14 @@ const SchoolPrograms = () => {
     <div className="min-h-screen">
       <Navbar />
       
-      {/* Hero Section */}
       <section className="relative pt-24 pb-12 bg-muted">
         <div className="container mx-auto px-4">
           <button 
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/courses/school')}
             className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Home
+            Back to School Programs
           </button>
           
           <motion.div
@@ -172,24 +157,23 @@ const SchoolPrograms = () => {
             className="flex items-center gap-4 mb-4"
           >
             <div className="w-16 h-16 rounded-xl bg-primary flex items-center justify-center">
-              <GraduationCap className="w-8 h-8 text-primary-foreground" />
+              <Microscope className="w-8 h-8 text-primary-foreground" />
             </div>
             <div>
               <h1 className="text-3xl md:text-4xl font-bold font-display">
-                School Programs
+                STEM Learning
               </h1>
-              <p className="text-muted-foreground">For Students Class 1–12</p>
+              <p className="text-muted-foreground">Science, Technology, Engineering & Arts</p>
             </div>
           </motion.div>
           
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Comprehensive programs designed to spark curiosity and build strong foundations 
-            in academics, coding, STEM, and languages.
+            Hands-on learning experiences in creative arts and languages through 
+            expert-led workshops and comprehensive courses.
           </p>
         </div>
       </section>
 
-      {/* Categories Grid */}
       <section className="py-16 bg-background" ref={ref}>
         <div className="container mx-auto px-4">
           <motion.div
@@ -199,15 +183,15 @@ const SchoolPrograms = () => {
             className="text-center mb-12"
           >
             <h2 className="text-2xl md:text-3xl font-bold font-display mb-4">
-              Choose Your Learning Path
+              Explore Our Programs
             </h2>
             <p className="text-muted-foreground">
-              Explore our specialized programs tailored for school students
+              Choose from creative arts or language mastery
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {schoolCategories.map((category, index) => (
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {stemCategories.map((category, index) => (
               <CategoryCard 
                 key={category.title} 
                 category={category} 
@@ -218,14 +202,13 @@ const SchoolPrograms = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold font-display mb-4">
-            Ready to Start Learning?
+            Ready to Explore?
           </h2>
           <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-            Contact us to learn more about our programs and find the perfect fit for your child.
+            Contact us to learn more about our STEM programs and find the perfect fit.
           </p>
           <motion.a
             href="/#contact"
@@ -244,4 +227,4 @@ const SchoolPrograms = () => {
   );
 };
 
-export default SchoolPrograms;
+export default StemPrograms;
