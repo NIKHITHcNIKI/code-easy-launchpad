@@ -140,7 +140,14 @@ const StemPrograms = () => {
     <div className="min-h-screen">
       <Navbar />
       
-      <section className="relative pt-24 pb-12 bg-muted">
+      <section className="relative pt-24 pb-12 bg-muted overflow-hidden">
+        {/* Signature color stripe */}
+        <div className="absolute top-0 left-0 right-0 flex h-1">
+          <div className="flex-1 bg-red-500" />
+          <div className="flex-1 bg-blue-500" />
+          <div className="flex-1 bg-yellow-400" />
+          <div className="flex-1 bg-green-500" />
+        </div>
         <div className="container mx-auto px-4">
           <button 
             onClick={() => navigate('/courses/school')}
