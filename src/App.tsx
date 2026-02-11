@@ -12,6 +12,8 @@ import SchoolPrograms from "./pages/SchoolPrograms";
 import CollegePrograms from "./pages/CollegePrograms";
 import LanguageCourses from "./pages/LanguageCourses";
 import StemPrograms from "./pages/StemPrograms";
+import FinancePrograms from "./pages/FinancePrograms";
+import ExamCounseling from "./pages/ExamCounseling";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ const App = () => (
             <Route path="/courses/college" element={<CollegePrograms />} />
             <Route path="/courses/stem" element={<StemPrograms />} />
             <Route path="/courses/languages" element={<LanguageCourses />} />
+            <Route path="/courses/finance" element={<FinancePrograms />} />
+            <Route path="/courses/exam-counseling" element={<ExamCounseling />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/signup" element={<AdminSignup />} />
             <Route path="/admin" element={<AdminDashboard />} />
