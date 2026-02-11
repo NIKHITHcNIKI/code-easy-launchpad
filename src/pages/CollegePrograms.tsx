@@ -11,8 +11,11 @@ import {
   ArrowLeft, 
   ArrowRight,
   Clock,
-  Users
+  Users,
+  IndianRupee,
+  GraduationCap
 } from 'lucide-react';
+import courseFinanceImg from '@/assets/course-finance-detail.jpg';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -57,6 +60,27 @@ const collegeCategories = [
     audience: 'All Graduates',
     link: null,
   },
+  {
+    icon: IndianRupee,
+    title: 'Finance',
+    tagline: 'Master Financial Skills',
+    description: 'Comprehensive finance training covering taxation, accounting, and business economics for a strong career foundation.',
+    courses: ['Income Tax', 'GST', 'Accounts', 'Business Economics', 'Statistics'],
+    duration: '3-6 months',
+    audience: 'Commerce Graduates',
+    link: null,
+    image: 'finance',
+  },
+  {
+    icon: GraduationCap,
+    title: 'Executive Exam Counseling',
+    tagline: 'Crack Competitive Exams',
+    description: 'Expert guidance and structured preparation for executive-level competitive exams with proven strategies.',
+    courses: ['Exam Strategy', 'Mock Tests', 'Interview Prep', 'Career Guidance'],
+    duration: '3-6 months',
+    audience: 'Graduates',
+    link: null,
+  },
 ];
 
 const CategoryCard = ({ 
@@ -89,6 +113,13 @@ const CategoryCard = ({
       onClick={handleClick}
     >
       <div className="relative rounded-2xl overflow-hidden bg-card border border-border transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/30 h-full">
+        {/* Image for Finance card */}
+        {'image' in category && category.image === 'finance' && (
+          <div className="h-40 overflow-hidden">
+            <img src={courseFinanceImg} alt="Finance courses" className="w-full h-full object-cover" />
+          </div>
+        )}
+        
         {/* Icon Badge */}
         <div className="p-6">
           <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center shadow-lg mb-4">
