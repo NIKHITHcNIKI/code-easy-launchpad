@@ -6,8 +6,6 @@ import {
   Briefcase, 
   Code, 
   Shield, 
-  TrendingUp, 
-  Cloud,
   ArrowLeft, 
   ArrowRight,
   Clock,
@@ -15,7 +13,10 @@ import {
   IndianRupee,
   GraduationCap
 } from 'lucide-react';
+import courseProgrammingImg from '@/assets/course-programming.jpg';
+import courseCybersecurityImg from '@/assets/course-cybersecurity.jpg';
 import courseFinanceImg from '@/assets/course-finance-detail.jpg';
+import courseExamImg from '@/assets/course-exam-counseling.jpg';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -29,6 +30,7 @@ const collegeCategories = [
     duration: '6 months',
     audience: 'Graduates',
     link: null,
+    image: courseProgrammingImg,
   },
   {
     icon: Shield,
@@ -39,26 +41,7 @@ const collegeCategories = [
     duration: '4 months',
     audience: 'IT Students',
     link: null,
-  },
-  {
-    icon: TrendingUp,
-    title: 'Digital Marketing',
-    tagline: 'Drive Business Growth',
-    description: 'Master SEO, SEM, social media marketing, content strategy, and analytics.',
-    courses: ['SEO', 'Google Ads', 'Social Media', 'Content Marketing', 'Analytics'],
-    duration: '3 months',
-    audience: 'All Graduates',
-    link: null,
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud & IT',
-    tagline: 'Enterprise Technology',
-    description: 'Cloud computing, software testing, and essential IT skills for modern workplaces.',
-    courses: ['AWS', 'Azure', 'Software Testing', 'IT Fundamentals', 'Excel/Tally'],
-    duration: '2-4 months',
-    audience: 'All Graduates',
-    link: null,
+    image: courseCybersecurityImg,
   },
   {
     icon: IndianRupee,
@@ -68,18 +51,19 @@ const collegeCategories = [
     courses: ['Income Tax', 'GST', 'Accounts', 'Business Economics', 'Statistics'],
     duration: '3-6 months',
     audience: 'Commerce Graduates',
-    link: null,
-    image: 'finance',
+    link: '/courses/finance',
+    image: courseFinanceImg,
   },
   {
     icon: GraduationCap,
     title: 'Executive Exam Counseling',
     tagline: 'Crack Competitive Exams',
     description: 'Expert guidance and structured preparation for executive-level competitive exams with proven strategies.',
-    courses: ['Exam Strategy', 'Mock Tests', 'Interview Prep', 'Career Guidance'],
+    courses: ['PGCET M.Tech', 'PGCET MBA', 'Mock Tests', 'Interview Prep'],
     duration: '3-6 months',
     audience: 'Graduates',
-    link: null,
+    link: '/courses/exam-counseling',
+    image: courseExamImg,
   },
 ];
 
@@ -98,7 +82,6 @@ const CategoryCard = ({
     if (category.link) {
       navigate(category.link);
     } else {
-      // Scroll to contact section
       window.location.href = '/#contact';
     }
   };
@@ -113,16 +96,14 @@ const CategoryCard = ({
       onClick={handleClick}
     >
       <div className="relative rounded-2xl overflow-hidden bg-card border border-border transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/30 h-full">
-        {/* Image for Finance card */}
-        {'image' in category && category.image === 'finance' && (
-          <div className="h-40 overflow-hidden">
-            <img src={courseFinanceImg} alt="Finance courses" className="w-full h-full object-cover" />
-          </div>
-        )}
+        {/* Card Image */}
+        <div className="h-44 overflow-hidden">
+          <img src={category.image} alt={category.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        </div>
         
         {/* Icon Badge */}
         <div className="p-6">
-          <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center shadow-lg mb-4">
+          <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center shadow-lg mb-4 -mt-12 relative z-10 border-4 border-card">
             <category.icon className="w-7 h-7 text-primary-foreground" />
           </div>
 
@@ -159,7 +140,7 @@ const CategoryCard = ({
           
           {/* CTA */}
           <div className="flex items-center gap-1 text-primary font-medium text-sm group-hover:gap-2 transition-all">
-            Enquire Now
+            {category.link ? 'Explore' : 'Enquire Now'}
             <ArrowRight className="w-4 h-4" />
           </div>
         </div>
