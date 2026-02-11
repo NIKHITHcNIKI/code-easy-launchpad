@@ -261,32 +261,6 @@ const Reviews = () => {
             Real stories from our students and parents who experienced the Code Easy difference
           </p>
 
-          {/* Write Review Button */}
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <motion.button
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium transition-all duration-300 hover:bg-primary/90"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Plus className="w-5 h-5" />
-                Write a Review
-              </motion.button>
-            </DialogTrigger>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle className="text-xl font-display flex items-center gap-2">
-                  <Star className="w-5 h-5 text-primary" />
-                  Share Your Experience
-                </DialogTitle>
-              </DialogHeader>
-              <ReviewForm 
-                onSubmit={handleAddReview} 
-                onClose={() => setIsDialogOpen(false)}
-                isSubmitting={isSubmitting}
-              />
-            </DialogContent>
-          </Dialog>
         </motion.div>
 
         {/* Desktop Grid */}
